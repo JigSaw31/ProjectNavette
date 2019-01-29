@@ -13,13 +13,13 @@ public class Admin {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name="login")
+	@Column(name="login", length = 100, nullable = false)
 	private String login;
 	
-	@Column(name="password")
+	@Column(name="password", length = 100, nullable = false)
 	private String password;
 
 	public Long getId() {
