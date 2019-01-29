@@ -80,6 +80,15 @@ public class Trajet {
 		public void setJour(Jour jour) {
 			this.jour = jour;
 		}
+
+		public List<Reservation> getReservations() {
+			return reservations;
+		}
+
+		public void setReservations(List<Reservation> reservations) {
+			this.reservations = reservations;
+		}
+		
 		
 		
 }
