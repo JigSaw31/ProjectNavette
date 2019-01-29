@@ -26,19 +26,19 @@ public class Trajet {
 		private Integer nbPlaceDisponible;
 		
 		@ManyToOne
-		@JoinColumn (name = "idNavette",referencedColumnName="id")
+		@JoinColumn (name = "id_Navette",referencedColumnName="id")
 		private Navette navette;
 		
 		@ManyToOne
-		@JoinColumn (name = "idHoraire", referencedColumnName="id")
+		@JoinColumn (name = "id_Horaire", referencedColumnName="id")
 		private Horaire horaire;
 		
 		@ManyToOne
-		@JoinColumn (name = "idJour",referencedColumnName="id")
+		@JoinColumn (name = "id_Jour",referencedColumnName="id")
 		private Jour jour;
 		
 		@OneToMany
-		@JoinColumn(name="idReservation", referencedColumnName="id")
+		@JoinColumn(name="id_Reservation", referencedColumnName="id")
 		private List<Reservation> reservations;
 
 		public Long getId() {
