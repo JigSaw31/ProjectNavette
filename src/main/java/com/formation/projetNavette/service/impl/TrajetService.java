@@ -1,0 +1,37 @@
+package com.formation.projetNavette.service.impl;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.imageio.ImageTranscoder;
+import javax.security.auth.x500.X500Principal;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.formation.projetNavette.dto.TrajetParJour;
+import com.formation.projetNavette.persistence.entity.Trajet;
+import com.formation.projetNavette.persistence.repository.TrajetRepository;
+import com.formation.projetNavette.service.ITrajetInterface;
+
+@Service
+@Transactional
+public class TrajetService implements ITrajetInterface {
+	
+	@Autowired
+	private TrajetRepository trajetRepository;
+
+	@Override
+	public List<Trajet> findAll(Date date) {
+		
+		List<Trajet> trajets = trajetRepository.findAll();
+		
+		return trajets.stream().filter(x -> x.getJour().getJour().equals(date)).collect(Collectors.toList());
+		
+	}
+
+}
