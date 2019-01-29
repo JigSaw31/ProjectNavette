@@ -18,7 +18,7 @@ public class Horaire {
 		@Column (name = "id", unique = true, nullable = false)
 		private Long id;
 
-		@Column (name = "horaire")
+		@Column (name = "horaire", nullable=false)
 		private Time horaire;
 
 		public Long getId() {

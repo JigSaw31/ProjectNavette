@@ -19,13 +19,13 @@ public class Reservation {
 	@Column (name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column (name = "nbPlacesReservees")
+	@Column (name = "nbPlacesReservees", nullable=false)
 	private int nbPlacesReservees;
 	
-	@Column (name = "prixTotalHt")
+	@Column (name = "prixTotalHt", nullable=false)
 	private Double prixTotalHt;
 	
-	@Column (name = "prixTotalTtc")
+	@Column (name = "prixTotalTtc", nullable=false)
 	private Double prixTotalTtc;
 	
 	@ManyToOne
