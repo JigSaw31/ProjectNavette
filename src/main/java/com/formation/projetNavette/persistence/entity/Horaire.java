@@ -29,12 +29,14 @@ public class Horaire {
 			this.id = id;
 		}
 
-		public Time getTime() {
+		public Time getHoraire() {
 			return horaire;
 		}
 
-		public void setLibelle(Time horaire) {
+		public void setHoraire(Time horaire) {
 			this.horaire = horaire;
 		}
+
+		
 		
 }
