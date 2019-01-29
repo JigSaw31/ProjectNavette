@@ -31,6 +31,7 @@ public class Reservation {
 	@ManyToOne
 	@JoinColumn(name="id_client", referencedColumnName="id")
 	private Client client;
+	
 
 	public Long getId() {
 		return id;

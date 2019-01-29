@@ -38,7 +38,7 @@ public class Trajet {
 		private Jour jour;
 		
 		@OneToMany
-		@JoinColumn(name="id_reservation", referencedColumnName="id")
+		@JoinColumn(name="id_trajet", referencedColumnName="id")
 		private List<Reservation> reservations;
 
 		public Long getId() {
