@@ -16,10 +16,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.formation.projetNavette.dto.ReservationItem;
 import com.formation.projetNavette.dto.TrajetParJour;
 import com.formation.projetNavette.persistence.entity.Horaire;
+import com.formation.projetNavette.persistence.entity.Reservation;
 import com.formation.projetNavette.persistence.entity.Trajet;
+import com.formation.projetNavette.persistence.repository.ReservationRepository;
 import com.formation.projetNavette.persistence.repository.TrajetRepository;
 import com.formation.projetNavette.service.ITrajetInterface;
 
@@ -30,6 +35,7 @@ public class TrajetService implements ITrajetInterface {
 	
 	@Autowired
 	private TrajetRepository trajetRepository;
+	
 
 	@Override
 	public ArrayList<TrajetParJour> findAll(Date date) {
@@ -56,8 +62,7 @@ public class TrajetService implements ITrajetInterface {
 	@Override
 	public List<TrajetParJour> findByHoraire(Time horaire, Date date) {
 		
-		ArrayList<TrajetParJour> trajetParHoraires = findAll(date);
-		  
+		ArrayList<TrajetParJour> trajetParHoraires = findAll(date);	  
 		
 		trajetParHoraires = (ArrayList<TrajetParJour>) trajetParHoraires.stream().filter(x -> x.getTime().equals(horaire)).collect(Collectors.toList());
 		
@@ -65,5 +70,29 @@ public class TrajetService implements ITrajetInterface {
 		
 	
 	}
+
+
+
+	@Override
+	public ReservationItem ouvrirReservation(Date date,Time horaire, int nbre) {
+		
+		ReservationItem reservation = new ReservationItem();
+		
+       List<TrajetParJour> trajet = findByHoraire(horaire,date);
+		
+		for (TrajetParJour item : trajet) {
+			TrajetParJour trajetParJour = new TrajetParJour();
+			trajetParJour.setPlacesDisponibles(item.getPlacesDisponibles());
+			
+			if (nbre <= trajetParJour.getPlacesDisponibles()) {
+		 reservation.setPrixTotalHt(8*(double)nbre);
+		 reservation.setPrixTotalTtc(8*(double)nbre*1.2);
+		 reservation.setNbPlacesReservees(nbre);
+		} 
+	    
+	    }
+		return reservation;
+             }
+	
 }
 

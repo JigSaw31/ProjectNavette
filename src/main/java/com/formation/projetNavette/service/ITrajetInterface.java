@@ -5,9 +5,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.formation.projetNavette.dto.ReservationItem;
 import com.formation.projetNavette.dto.TrajetParJour;
-
-import com.formation.projetNavette.persistence.entity.Trajet;
 
 public interface ITrajetInterface {
 	
@@ -15,5 +14,8 @@ public interface ITrajetInterface {
 	
 
 	List<TrajetParJour> findByHoraire(Time horaire, Date date);
+
+
+    ReservationItem ouvrirReservation(Date date,Time horaire, int nbre);
 
 }
