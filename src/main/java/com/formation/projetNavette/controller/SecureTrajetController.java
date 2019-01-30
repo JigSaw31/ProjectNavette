@@ -15,7 +15,8 @@ import com.formation.projetNavette.persistence.repository.TrajetRepository;
 public class SecureTrajetController {
 
 	
-	@Autowired TrajetRepository trajetRepository;
+	@Autowired 
+	private TrajetRepository trajetRepository;
 	
 	@PostMapping
 	@ResponseBody
