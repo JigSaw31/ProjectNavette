@@ -1,6 +1,7 @@
 package com.formation.projetNavette.service.impl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -26,12 +27,23 @@ public class TrajetService implements ITrajetInterface {
 	private TrajetRepository trajetRepository;
 
 	@Override
-	public List<Trajet> findAll(Date date) {
+	public ArrayList<TrajetParJour> findAll(Date date) {
 		
 		List<Trajet> trajets = trajetRepository.findAll();
+		ArrayList<TrajetParJour> trajetParJours = new ArrayList<TrajetParJour>();
 		
-		return trajets.stream().filter(x -> x.getJour().getJour().equals(date)).collect(Collectors.toList());
+		trajets = trajets.stream().filter(x -> x.getJour().getJour().equals(date)).collect(Collectors.toList());
 		
+		for (Trajet trajet : trajets) {
+			TrajetParJour trajetParJour = new TrajetParJour();
+			trajetParJour.setDate(trajet.getJour().getJour());
+			trajetParJour.setTime(trajet.getHoraire().getHoraire());
+			trajetParJour.setPlacesDisponibles(trajet.getNbPlaceDisponible());
+			
+			trajetParJours.add(trajetParJour);
+		}
+		
+		return trajetParJours;
 	}
 
 }

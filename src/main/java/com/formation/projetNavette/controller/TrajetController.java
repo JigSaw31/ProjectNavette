@@ -1,6 +1,7 @@
 package com.formation.projetNavette.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class TrajetController {
 	
 	@GetMapping(value="/TrajetParJour/{date}")
 	@ResponseBody
-	public List<Trajet> findAll(@PathVariable Date date){
+	public ArrayList<TrajetParJour> findAll(@PathVariable Date date){
 		return trajetInterface.findAll(date);
 	}
 	
