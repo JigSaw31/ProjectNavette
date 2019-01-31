@@ -17,6 +17,7 @@ import com.formation.projetNavette.dto.ReservationLight;
 import com.formation.projetNavette.dto.ReservationValidee;
 import com.formation.projetNavette.persistence.entity.Client;
 import com.formation.projetNavette.persistence.entity.Reservation;
+import com.formation.projetNavette.persistence.entity.Trajet;
 import com.formation.projetNavette.persistence.repository.ReservationRepository;
 import com.formation.projetNavette.service.IReservationInterface;
 import com.formation.projetNavette.service.impl.TrajetService;
@@ -28,6 +29,7 @@ public class ReservationService implements IReservationInterface {
 
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
 	
 	@Autowired
 	private ClientService clientService;
@@ -58,6 +60,7 @@ public class ReservationService implements IReservationInterface {
 		
 		ReservationItem reservationItem= trajetService.ouvrirReservation(date, horaire, reservationValidee.getNbPlacesReservees());
 		Client clientEnregistre=clientService.findByMailAndTelephone(reservationValidee.getMail(), reservationValidee.getTelephone());
+		Trajet trajet= trajetService.findOne(reservationItem.getTrajetConcerne().getId());
 		Reservation reservation = new Reservation();
 		Client client= new Client();
 				
@@ -78,8 +81,12 @@ public class ReservationService implements IReservationInterface {
 			clientService.save(client);
 			reservation.setClient(client);
 		}
-		
 		reservationRepository.save(reservation);
+		
+		trajet.getReservations().add(reservation);
+		trajet.setNbPlaceDisponible(trajet.getNbPlaceDisponible()-reservation.getNbPlacesReservees());
+		
+		trajetService.save(trajet);
 		return reservationValidee;	
 		}
 		else return null;

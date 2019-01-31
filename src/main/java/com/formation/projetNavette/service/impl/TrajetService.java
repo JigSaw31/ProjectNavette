@@ -7,7 +7,7 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
-import java.util.stream.Collectors;
+
 
 
 
@@ -49,6 +49,7 @@ public class TrajetService implements ITrajetInterface {
 			trajetParJour.setDate(trajet.getJour().getJour());
 			trajetParJour.setTime(trajet.getHoraire().getHoraire());
 			trajetParJour.setPlacesDisponibles(trajet.getNbPlaceDisponible());
+			trajetParJour.setId(trajet.getId());
 			
 			trajetParJours.add(trajetParJour);
 		}
@@ -82,16 +83,35 @@ public class TrajetService implements ITrajetInterface {
 		for (TrajetParJour item : trajet) {
 			TrajetParJour trajetParJour = new TrajetParJour();
 			trajetParJour.setPlacesDisponibles(item.getPlacesDisponibles());
-			
+			trajetParJour.setDate(item.getDate());
+			trajetParJour.setTime(item.getTime());
+			trajetParJour.setId(item.getId());
 			if (nbre <= trajetParJour.getPlacesDisponibles()) {
 		 reservation.setPrixTotalHt(8*(double)nbre);
 		 reservation.setPrixTotalTtc(8*(double)nbre*1.2);
 		 reservation.setNbPlacesReservees(nbre);
+		 reservation.setTrajetConcerne(trajetParJour);
 		} 
 	    
 	    }
 		return reservation;
              }
+
+
+
+	public Trajet findOne(Long id) {
+		Trajet trajet=trajetRepository.findOne(id);
+		return trajet;
+	}
+
+
+
+	public Trajet save(Trajet trajet) {
+		return trajetRepository.save(trajet);
+		
+		
+		
+	}
 
 
 

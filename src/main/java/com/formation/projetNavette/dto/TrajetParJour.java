@@ -5,11 +5,22 @@ import java.sql.Time;
 
 public class TrajetParJour {
 	
+	private Long id; 
+	
 	private Date date;
 	
 	private Time time;
 	
 	private int placesDisponibles;
+
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Date getDate() {
 		return date;

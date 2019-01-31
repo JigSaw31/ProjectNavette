@@ -6,12 +6,27 @@ public class ReservationItem {
 	private Double prixTotalHt;
 	private Double prixTotalTtc;
 	private int nbPlacesReservees;
+	private TrajetParJour trajetConcerne;
 	
 	
 
 	public ReservationItem() {
 		
 	}
+	
+	
+
+	public TrajetParJour getTrajetConcerne() {
+		return trajetConcerne;
+	}
+
+
+
+	public void setTrajetConcerne(TrajetParJour trajetConcerne) {
+		this.trajetConcerne = trajetConcerne;
+	}
+
+
 
 	public int getNbPlacesReservees() {
 		return nbPlacesReservees;
