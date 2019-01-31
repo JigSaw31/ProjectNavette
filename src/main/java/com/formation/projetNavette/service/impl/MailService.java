@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 
 public class MailService {
 	
-	public static void envoiMail() {
+	public static void envoiMail(String mail) {
 
 	
 		Properties props = new Properties();
@@ -35,10 +35,10 @@ public class MailService {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("from@no-spam.com"));
 			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse("thomas.bodenes@yahoo.fr"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler," +
-					"\n\n No spam to my email, please!");
+					InternetAddress.parse(mail));
+			message.setSubject("Confirmation de votre reservation NavetteAirport");
+			message.setText("Bonjour," +
+					"\n\n Confirmation de votre reservation pour la navette" + "\n\n Cordialement l'équipe team Cinq");
 
 			Transport.send(message);
 

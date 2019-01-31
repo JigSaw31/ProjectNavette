@@ -39,7 +39,7 @@ public class SecureTrajetController {
 	@PostMapping(value="/mail")
 	@ResponseBody
 	public void envoiMail() {
-		MailService.envoiMail();
+		MailService.envoiMail("");
 	}
 	
 }
