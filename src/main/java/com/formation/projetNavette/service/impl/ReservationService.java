@@ -11,10 +11,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.formation.projetNavette.dto.ClientItem;
+import com.formation.projetNavette.dto.ReservationFacture;
 import com.formation.projetNavette.dto.ReservationItem;
 import com.formation.projetNavette.dto.ReservationLight;
 import com.formation.projetNavette.dto.ReservationValidee;
+import com.formation.projetNavette.dto.TrajetParJour;
 import com.formation.projetNavette.persistence.entity.Client;
 import com.formation.projetNavette.persistence.entity.Reservation;
 import com.formation.projetNavette.persistence.entity.Trajet;
@@ -55,7 +57,7 @@ public class ReservationService implements IReservationInterface {
 		
 		return reservationLights;
 	}
-	
+	@Override
 	public ReservationValidee save(Date date, Time horaire, ReservationValidee reservationValidee,Boolean moyenDePaiement) {
 		
 		ReservationItem reservationItem= trajetService.ouvrirReservation(date, horaire, reservationValidee.getNbPlacesReservees());
@@ -91,5 +93,37 @@ public class ReservationService implements IReservationInterface {
 		}
 		else return null;
 	}
+
+	@Override
+	public ArrayList<ReservationFacture> editerFacture(Date date, Time horaire, String mail, String telephone) {
+		Client client=clientService.findByMailAndTelephone(mail,telephone);
+		ArrayList<TrajetParJour> trajets=trajetService.findByHoraire(horaire, date);
+		ArrayList<ReservationFacture> factures = new ArrayList<ReservationFacture>();
+		for (TrajetParJour trajetParJour:trajets) {
+		Trajet trajet=trajetService.findOne(trajetParJour.getId());
+		
+		ReservationFacture facture= new ReservationFacture();
+		ClientItem clientItem= new ClientItem(client);
+		
+
+		
+		for(Reservation reservation: trajet.getReservations()) {
+			if ((reservation.getClient())==(client)) {
+				
+				facture.setTrajetConcerne(trajetParJour);
+				facture.setPrixTotalHt(reservation.getPrixTotalHt());
+				facture.setPrixTotalTtc(reservation.getPrixTotalTtc());
+				facture.setPrixTva(facture.getPrixTotalTtc()-facture.getPrixTotalHt());
+				facture.setNbPlacesReservees(reservation.getNbPlacesReservees());
+				
+				facture.setClient(clientItem);
+				factures.add(facture);
+			}}
+			
+		
+		}		
+		return factures;
+			}
+	}
 	
-}
+

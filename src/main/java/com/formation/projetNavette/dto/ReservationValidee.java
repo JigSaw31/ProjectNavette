@@ -7,9 +7,6 @@ public class ReservationValidee {
 	
 	
 	private int nbPlacesReservees;
-
-	
-	
 	private String nom;
 	
 	

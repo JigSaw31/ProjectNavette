@@ -3,7 +3,7 @@ package com.formation.projetNavette.controller;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class TrajetController {
 	
 	@GetMapping(value="/TrajetParJour/{date}/{horaire}")
 	@ResponseBody
-	public List<TrajetParJour> findByDateByHoraire(@PathVariable Date date, @PathVariable Time horaire){
+	public ArrayList<TrajetParJour> findByDateByHoraire(@PathVariable Date date, @PathVariable Time horaire){
 		return  trajetInterface.findByHoraire(horaire,date);
 	}
 	

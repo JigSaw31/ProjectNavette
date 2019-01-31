@@ -60,13 +60,13 @@ public class TrajetService implements ITrajetInterface {
 	
 
 	@Override
-	public List<TrajetParJour> findByHoraire(Time horaire, Date date) {
+	public ArrayList<TrajetParJour> findByHoraire(Time horaire, Date date) {
 		
 		ArrayList<TrajetParJour> trajetParHoraires = findAll(date);	  
 		
 		trajetParHoraires = (ArrayList<TrajetParJour>) trajetParHoraires.stream().filter(x -> x.getTime().equals(horaire)).collect(Collectors.toList());
-		
 		return trajetParHoraires;
+	//	return trajetParHoraires.get(0);
 		
 	
 	}
@@ -78,22 +78,22 @@ public class TrajetService implements ITrajetInterface {
 		
 		ReservationItem reservation = new ReservationItem();
 		
-       List<TrajetParJour> trajet = findByHoraire(horaire,date);
+       ArrayList<TrajetParJour> trajets = findByHoraire(horaire,date);
 		
-		for (TrajetParJour item : trajet) {
+       		for( TrajetParJour trajet: trajets) {
 			TrajetParJour trajetParJour = new TrajetParJour();
-			trajetParJour.setPlacesDisponibles(item.getPlacesDisponibles());
-			trajetParJour.setDate(item.getDate());
-			trajetParJour.setTime(item.getTime());
-			trajetParJour.setId(item.getId());
+			trajetParJour.setPlacesDisponibles(trajet.getPlacesDisponibles());
+			trajetParJour.setDate(trajet.getDate());
+			trajetParJour.setTime(trajet.getTime());
+			trajetParJour.setId(trajet.getId());
 			if (nbre <= trajetParJour.getPlacesDisponibles()) {
 		 reservation.setPrixTotalHt(8*(double)nbre);
 		 reservation.setPrixTotalTtc(8*(double)nbre*1.2);
 		 reservation.setNbPlacesReservees(nbre);
 		 reservation.setTrajetConcerne(trajetParJour);
 		} 
+       		}
 	    
-	    }
 		return reservation;
              }
 
