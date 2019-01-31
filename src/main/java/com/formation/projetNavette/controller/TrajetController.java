@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,6 @@ public class TrajetController {
 	@GetMapping(value="/TrajetParJour/{date}/{horaire}")
 	@ResponseBody
 	public List<TrajetParJour> findByDateByHoraire(@PathVariable Date date, @PathVariable Time horaire){
-		
 		return  trajetInterface.findByHoraire(horaire,date);
 	}
 	
@@ -44,6 +44,8 @@ public class TrajetController {
 	public ReservationItem ouvrirReservation(@PathVariable Date date, @PathVariable Time horaire, @RequestBody int nbrePlacesSouhaitees) {
 		return  trajetInterface.ouvrirReservation(date,horaire,nbrePlacesSouhaitees);
 	}
+	
+
 	
 		
 	
