@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.formation.projetNavette.dto.ReservationLight;
+
 import com.formation.projetNavette.persistence.entity.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
