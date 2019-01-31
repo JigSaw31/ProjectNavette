@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.formation.projetNavette.dto.ReservationItem;
+
 import com.formation.projetNavette.dto.TrajetParJour;
 
 public interface ITrajetInterface {
@@ -17,5 +18,9 @@ public interface ITrajetInterface {
 
 
     ReservationItem ouvrirReservation(Date date,Time horaire, int nbre);
+
+
+
+
 
 }

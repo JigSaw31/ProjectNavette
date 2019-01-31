@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.formation.projetNavette.dto.ReservationItem;
+
 import com.formation.projetNavette.dto.TrajetParJour;
 import com.formation.projetNavette.service.ITrajetInterface;
+
+
 
 @RestController
 @RequestMapping(value="/api/public/navette")
@@ -46,8 +50,6 @@ public class TrajetController {
 	}
 	
 
-	
-		
 	
 	
 }
