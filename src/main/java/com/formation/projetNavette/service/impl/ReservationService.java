@@ -1,17 +1,26 @@
 package com.formation.projetNavette.service.impl;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import com.formation.projetNavette.dto.ReservationItem;
 import com.formation.projetNavette.dto.ReservationLight;
+import com.formation.projetNavette.dto.ReservationValidee;
+import com.formation.projetNavette.persistence.entity.Client;
 import com.formation.projetNavette.persistence.entity.Reservation;
 import com.formation.projetNavette.persistence.repository.ReservationRepository;
 import com.formation.projetNavette.service.IReservationInterface;
+import com.formation.projetNavette.service.impl.TrajetService;
+import com.formation.projetNavette.service.impl.ClientService;
 
 @Service
 @Transactional
@@ -19,6 +28,12 @@ public class ReservationService implements IReservationInterface {
 
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
+	@Autowired
+	private ClientService clientService;
+	
+	@Autowired
+	private TrajetService trajetService;
 	
 	@Override
 	public ArrayList<ReservationLight> findByIdClient(Long id) {
@@ -38,6 +53,36 @@ public class ReservationService implements IReservationInterface {
 		
 		return reservationLights;
 	}
-
+	
+	public ReservationValidee save(Date date, Time horaire, ReservationValidee reservationValidee,Boolean moyenDePaiement) {
+		
+		ReservationItem reservationItem= trajetService.ouvrirReservation(date, horaire, reservationValidee.getNbPlacesReservees());
+		Client clientEnregistre=clientService.findByMailAndTelephone(reservationValidee.getMail(), reservationValidee.getTelephone());
+		Reservation reservation = new Reservation();
+		Client client= new Client();
+				
+		if (moyenDePaiement) {
+		 
+		reservation.setNbPlacesReservees(reservationItem.getNbPlacesReservees());
+		reservation.setPrixTotalHt(reservationItem.getPrixTotalHt());
+		reservation.setPrixTotalTtc(reservationItem.getPrixTotalTtc());
+		
+		if (clientEnregistre!= null) {
+		reservation.setClient(clientEnregistre);
+		}
+		else {
+			client.setNom(reservationValidee.getNom());
+			client.setPrenom(reservationValidee.getPrenom());
+			client.setMail(reservationValidee.getMail());
+			client.setTelephone(reservationValidee.getTelephone());
+			clientService.save(client);
+			reservation.setClient(client);
+		}
+		
+		reservationRepository.save(reservation);
+		return reservationValidee;	
+		}
+		else return null;
+	}
 	
 }

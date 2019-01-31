@@ -4,27 +4,23 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import javax.imageio.ImageTranscoder;
-import javax.security.auth.x500.X500Principal;
+import java.util.stream.Collectors;
+
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import com.formation.projetNavette.dto.ReservationItem;
+
 import com.formation.projetNavette.dto.TrajetParJour;
-import com.formation.projetNavette.persistence.entity.Horaire;
-import com.formation.projetNavette.persistence.entity.Reservation;
+
 import com.formation.projetNavette.persistence.entity.Trajet;
-import com.formation.projetNavette.persistence.repository.ReservationRepository;
+
 import com.formation.projetNavette.persistence.repository.TrajetRepository;
 import com.formation.projetNavette.service.ITrajetInterface;
 
@@ -93,6 +89,21 @@ public class TrajetService implements ITrajetInterface {
 	    }
 		return reservation;
              }
-	
+
+
+
+
+//
+//	@Override
+//	public ReservationValidee save(Date date, Time horaire, ReservationValidee reservationValidee,
+//			Boolean moyenDePaiement) {
+//		ReservationItem reservationItem= ouvrirReservation(date, horaire, reservationValidee.getNbPlacesReservees());
+//		
+//		reservationRepository.save(reservationValidee);
+//			
+//			
+//		
+//		return null;
+//	}
 }
 
