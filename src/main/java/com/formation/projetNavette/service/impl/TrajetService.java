@@ -113,7 +113,7 @@ public class TrajetService implements ITrajetInterface {
 		
 	}
 	
-    public static String validationReservation(String mail, boolean x) {
+    public String validationReservation(String mail, boolean x) {
 		
 		if (x == true) {	
 				MailService.envoiMail(mail);

@@ -89,6 +89,7 @@ public class ReservationService implements IReservationInterface {
 		trajet.setNbPlaceDisponible(trajet.getNbPlaceDisponible()-reservation.getNbPlacesReservees());
 		
 		trajetService.save(trajet);
+		trajetService.validationReservation(reservationValidee.getMail(), true);
 		return reservationValidee;	
 		}
 		else return null;
