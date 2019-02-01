@@ -21,7 +21,11 @@ import org.springframework.stereotype.Service;
 import com.formation.projetNavette.dto.ReservationItem;
 
 import com.formation.projetNavette.dto.TrajetParJour;
+
 import com.formation.projetNavette.exception.NotIdentifiedException;
+
+import com.formation.projetNavette.persistence.entity.Reservation;
+
 import com.formation.projetNavette.persistence.entity.Trajet;
 
 import com.formation.projetNavette.persistence.repository.TrajetRepository;
@@ -134,6 +138,35 @@ public class TrajetService implements ITrajetInterface {
 		else {
 	return "Abandon !";
 		}
+		}
+    
+ public String annulerReservation(String mail, boolean x) {
+		
+		if (x == true) {	
+				MailService.envoiMail(mail);
+				return "Commande annulée, mail envoyé à "+ mail+ " .";			}
+
+		else {
+	return "Abandon !";
+		}
+		}
+		
+	@Override
+	public String annulation(Date date, Time horaire) {
+			ArrayList<TrajetParJour> trajets= findByHoraire(horaire,date);
+			 List<Reservation> reservations= trajetRepository.getOne(trajets.get(0).getId()).getReservations();
+			 String reponse=new String();
+			
+			
+			 trajetRepository.deleteById(trajets.get(0).getId());
+			 for(Reservation reservation:reservations) {
+				 reponse += annulerReservation(reservation.getClient().getMail(), true);
+				 
+				 
+			 }
+			
+			 
+			 return reponse;
     }	
 
 

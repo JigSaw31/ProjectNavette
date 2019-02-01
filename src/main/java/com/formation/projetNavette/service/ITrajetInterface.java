@@ -18,7 +18,10 @@ public interface ITrajetInterface {
 
 
     ReservationItem ouvrirReservation(Date date,Time horaire, int nbre);
-
+    
+    
+	public String annulation(Date date, Time horaire);
+	
 
 
 
