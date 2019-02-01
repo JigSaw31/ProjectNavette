@@ -21,11 +21,12 @@ import org.springframework.stereotype.Service;
 import com.formation.projetNavette.dto.ReservationItem;
 
 import com.formation.projetNavette.dto.TrajetParJour;
-
+import com.formation.projetNavette.exception.NotIdentifiedException;
 import com.formation.projetNavette.persistence.entity.Trajet;
 
 import com.formation.projetNavette.persistence.repository.TrajetRepository;
 import com.formation.projetNavette.service.ITrajetInterface;
+
 
 
 @Service
@@ -53,8 +54,12 @@ public class TrajetService implements ITrajetInterface {
 			
 			trajetParJours.add(trajetParJour);
 		}
-		
+		if (trajetParJours.size()!= 0) {
 		return trajetParJours;
+		
+		} else {
+			throw new NotIdentifiedException("Il n'y a pas de trajets pour ce jour !");
+		}
 	}
 
 	
@@ -65,10 +70,14 @@ public class TrajetService implements ITrajetInterface {
 		ArrayList<TrajetParJour> trajetParHoraires = findAll(date);	  
 		
 		trajetParHoraires = (ArrayList<TrajetParJour>) trajetParHoraires.stream().filter(x -> x.getTime().equals(horaire)).collect(Collectors.toList());
-		return trajetParHoraires;
-	//	return trajetParHoraires.get(0);
+
+		if (trajetParHoraires.size()!= 0) {
+			return trajetParHoraires;
+			
+			} else {
+				throw new NotIdentifiedException("Il n'y a pas de trajets pour cette horaire !");
+			}
 		
-	
 	}
 
 
@@ -91,11 +100,14 @@ public class TrajetService implements ITrajetInterface {
 		 reservation.setPrixTotalTtc(8*(double)nbre*1.2);
 		 reservation.setNbPlacesReservees(nbre);
 		 reservation.setTrajetConcerne(trajetParJour);
-		} 
-       		}
-	    
+		 
+		} else {
+				throw new NotIdentifiedException("Il n'y a pas assez de places disponibles pour votre réservation !");
+			   }
+ 
+       	} 
 		return reservation;
-             }
+    }
 
 
 

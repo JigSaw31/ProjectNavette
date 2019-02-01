@@ -17,6 +17,7 @@ import com.formation.projetNavette.dto.ReservationItem;
 import com.formation.projetNavette.dto.ReservationLight;
 import com.formation.projetNavette.dto.ReservationValidee;
 import com.formation.projetNavette.dto.TrajetParJour;
+import com.formation.projetNavette.exception.NotIdentifiedException;
 import com.formation.projetNavette.persistence.entity.Client;
 import com.formation.projetNavette.persistence.entity.Reservation;
 import com.formation.projetNavette.persistence.entity.Trajet;
@@ -91,8 +92,9 @@ public class ReservationService implements IReservationInterface {
 		trajetService.save(trajet);
 		trajetService.validationReservation(reservationValidee.getMail(), true);
 		return reservationValidee;	
-		}
-		else return null;
+		} else { 
+			throw new NotIdentifiedException("Moyen de paiement refusé !");
+		   }
 	}
 
 	@Override
