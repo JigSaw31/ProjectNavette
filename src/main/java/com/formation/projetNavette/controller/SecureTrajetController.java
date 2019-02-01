@@ -52,10 +52,17 @@ public class SecureTrajetController {
 	}
 	
 	
-	@GetMapping(value="/trajet/{date}/{horaire}")
+	@GetMapping(value="/{date}/{horaire}")
 	@ResponseBody
 	public ArrayList<TrajetParJour> tauxOccupation(@PathVariable Date date, @PathVariable Time horaire) {
 		return trajetService.findByHoraire(horaire, date);
+	}
+	
+	@DeleteMapping(value="/{date}/{horaire}/annulation")
+	@ResponseBody
+	public String annulation(@PathVariable Date date, @PathVariable Time horaire) {
+		return trajetService.annulation(date, horaire);
+	
 	}
 
 }
