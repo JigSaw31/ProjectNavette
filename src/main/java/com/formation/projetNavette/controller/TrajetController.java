@@ -20,6 +20,7 @@ import com.formation.projetNavette.dto.ReservationItem;
 
 import com.formation.projetNavette.dto.TrajetParJour;
 import com.formation.projetNavette.service.ITrajetInterface;
+import com.formation.projetNavette.service.impl.TrajetService;
 
 
 
@@ -47,6 +48,12 @@ public class TrajetController {
 	@ResponseBody
 	public ReservationItem ouvrirReservation(@PathVariable Date date, @PathVariable Time horaire, @RequestBody int nbrePlacesSouhaitees) {
 		return  trajetInterface.ouvrirReservation(date,horaire,nbrePlacesSouhaitees);
+	}
+	
+	@PostMapping(value="/ValidationReservation/{x}")
+	@ResponseBody
+	public String validationReservation(@RequestBody String mail, @PathVariable boolean x) {
+		return  TrajetService.validationReservation(mail,x);
 	}
 	
 
