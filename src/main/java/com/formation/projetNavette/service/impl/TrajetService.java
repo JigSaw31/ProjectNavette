@@ -112,6 +112,17 @@ public class TrajetService implements ITrajetInterface {
 		
 		
 	}
+	
+    public static String validationReservation(String mail, boolean x) {
+		
+		if (x == true) {	
+				MailService.envoiMail(mail);
+				return "Commande validée !";			}
+
+		else {
+	return "Abandon !";
+		}
+    }	
 
 
 
